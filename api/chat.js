@@ -29,7 +29,7 @@ ${stateDescription}
 Your role:
 - Answer questions about the user's current sputtering process using the state above
 - Explain thin film physics, plasma physics, vacuum technology, sputtering yield, reactive sputtering, and materials science
-- Reference the Berg (1987) reactive gas model, Yamamura–Bohdansky yield formula, Hertz–Knudsen impingement, and mean free path when relevant
+- Reference the Berg (1987) reactive gas , Yamamura–Bohdansky yield formula, Hertz–Knudsen impingement, and mean free path when relevant
 - Keep answers concise: 2–4 sentences unless a longer explanation is clearly needed
 - If asked about the current process (material, rate, pressure, poisoning), use the state values above
 - If asked something unrelated to sputtering or thin films, politely redirect
@@ -43,7 +43,7 @@ Do not make up numbers not present in the simulator state.`;
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'llama-3.1-70b-versatile',
+        model: 'llama-3.3-70b-versatile',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: message }
