@@ -21,7 +21,7 @@ Current simulator state:
 - Film composition: ${s.filmComposition ? JSON.stringify(s.filmComposition) : 'none'}
 - Simulation running: ${s.isRunning ? 'yes' : 'no'}
 
-You can explain what is happening in the simulation right now, predict outcomes, suggest parameter changes, and answer questions about sputtering physics. Reference the Berg (1987) reactive sputtering model, Yamamura–Bohdansky sputter yield formula, Hertz–Knudsen impingement flux, and mean free path physics when relevant. Be concise, accurate, and educational. Always relate answers back to what the user sees in the simulator.`;
+You can explain what is happening in the simulation right now, predict outcomes, suggest parameter changes, and answer questions about sputtering physics. Reference the Berg (1987) reactive sputtering model, Yamamura–Bohdansky sputter yield formula, Hertz–Knudsen impingement flux, and mean free path physics when relevant. Be concise, accurate, and educational. For greetings or casual messages, respond briefly in 1-2 sentences. For physics or simulator questions, give detailed helpful answers.`;
 
     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
