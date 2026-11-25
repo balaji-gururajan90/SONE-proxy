@@ -18,7 +18,7 @@ export default async function handler(req, res) {
           { role: 'system', content: 'You are SONE, a sputtering physics assistant.' },
           { role: 'user', content: message || 'hello' }
         ],
-        max_tokens: 100,
+        max_tokens: 400,
         temperature: 0.3
       })
     });
