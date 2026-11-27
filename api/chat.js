@@ -12,7 +12,10 @@ export default async function handler(req, res) {
 
 Current simulator state:
 - Target material: ${s.material || 'unknown'}
-- RF power: ${s.power ?? 'unknown'} W
+- Number of active guns: ${s.numGuns ?? 1}
+- Gun 1: ${s.gun1Material || 'unknown'}, ${s.gun1PowerType || 'DC'}, ${s.gun1Power ?? 0} W
+- Gun 2: ${s.gun2Material || 'unknown'}, ${s.gun2PowerType || 'DC'}, ${s.gun2Power ?? 0} W
+- Gun 3: ${s.gun3Material || 'unknown'}, ${s.gun3PowerType || 'DC'}, ${s.gun3Power ?? 0} W
 - Chamber pressure: ${s.pressure ?? 'unknown'} mTorr
 - Oxygen content: ${s.oxygenPercent ?? 0}%
 - Target poisoning fraction (θt): ${s.thetaT != null ? (s.thetaT * 100).toFixed(1) + '%' : 'unknown'}
