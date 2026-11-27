@@ -23,44 +23,46 @@ Current simulator state:
 
 PHYSICS KNOWLEDGE:
 
-1. YAMAMURA–BOHDANSKY SPUTTER YIELD (1996):
-Y(E) = 0.042 × Q × α*(M2/M1) × Sn(E) / Us × [1 − √(Eth/E)]^s × [1 − Eth/E]^W
-- Q: material factor, α*: mass ratio function, Sn: nuclear stopping, Us: surface binding energy
+1. YAMAMURA-BOHDANSKY SPUTTER YIELD (1996):
+Y(E) = 0.042 x Q x alpha*(M2/M1) x Sn(E) / Us x [1 - sqrt(Eth/E)]^s x [1 - Eth/E]^W
+- Q: material factor, alpha*: mass ratio function, Sn: nuclear stopping, Us: surface binding energy
 - Eth: threshold energy, s and W: empirical exponents
-- Valid for Ar⁺ bombardment on metals; used for all 15+ materials in SputterOne
+- Valid for Ar+ bombardment on metals; used for all 15+ materials in SputterOne
 
-2. BERG MODEL — ORIGINAL (Berg 1987):
-Target poisoning balance:
-θt = 2αtF(1−θt) / [2αtF(1−θt) + (J/q)×Yc×θt]
-Steady state: θt_eq = 2αtF / (2αtF + J/q × Yc)
-- F = P/√(2πmkT): Hertz–Knudsen impingement flux (molecules/m²/s)
-- Factor 2: one O₂ molecule forms two metal-oxide species
-- αt: chemisorption probability, Yc: compound sputter yield
-- Effective yield: Yeff = Ym(1−θt) + Yc×θt
-- Predicts hysteresis: sharp metallic→poisoned transition with increasing O₂ flow
+2. BERG MODEL - ORIGINAL (Berg 1987):
+Steady state target poisoning: theta_t = 2*alpha*F / (2*alpha*F + (J/q)*Yc)
+- F = P / sqrt(2*pi*m*k*T): Hertz-Knudsen impingement flux (molecules/m2/s)
+- Factor 2: one O2 molecule forms two metal-oxide species
+- alpha: chemisorption probability, Yc: compound sputter yield
+- Effective yield: Yeff = Ym*(1-theta_t) + Yc*theta_t
+- Predicts hysteresis: sharp metallic to poisoned transition with increasing O2 flow
 
-3. BERG MODEL — UPGRADED (Berg, Särhammar & Nyberg, Thin Solid Films, 2014):
-Adds three effects missing from the 1987 model:
-a) Ion implantation: reactive gas ions (O⁺) implanted into target bulk with probability αi
-b) Knock-in effect: Ar⁺ knocks compound atoms deeper into target (yield Yk)
+3. BERG MODEL - UPGRADED (Berg, Sarhammar and Nyberg, Thin Solid Films, 2014):
+Adds three effects missing from 1987:
+a) Ion implantation: reactive gas ions implanted into target bulk with probability alpha_i
+b) Knock-in effect: Ar+ knocks compound atoms deeper into target (yield Yk)
 c) Argon pressure dependence: ion current split P/(PA+P) for reactive gas ions
-Full target balance (Eq. 2):
-(J/q)×Yk×θt² + (J/q)×Yc×θt = 2αtF(1−θt) + 2αi×(J/q)×[P/(PA+P)]×(1−θt)
-- Quadratic in θt → sharper hysteresis than 1987 model
-- Needs 4 parameters (αt, αi, Yk, Yc) vs 2 in original
+Full balance: (J/q)*Yk*theta_t^2 + (J/q)*Yc*theta_t = 2*alpha_t*F*(1-theta_t) + 2*alpha_i*(J/q)*(P/(PA+P))*(1-theta_t)
+- Quadratic in theta_t gives sharper hysteresis than 1987 model
 - SputterOne implements the simpler 1987 model (best for teaching)
 
-4. HERTZ–KNUDSEN IMPINGEMENT FLUX:
-F = P / √(2πmkT)
+4. HERTZ-KNUDSEN IMPINGEMENT FLUX:
+F = P / sqrt(2*pi*m*k*T)
 - P: partial pressure (Pa), m: molecular mass (kg), k: Boltzmann constant, T: temperature (K)
-- Gives molecules hitting surface per m² per second
 
 5. MEAN FREE PATH:
-λ = kT / (√2 × π × d² × P)
-- d: collision diameter, P: pressure
-- Transport factor: exp(−d/λ) where d is target-substrate distance
+lambda = k*T / (sqrt(2) * pi * d^2 * P)
+- Transport factor: exp(-distance/lambda)
 
-Be concise and accurate. For greetings or casual messages, respond in 1-2 sentences. For physics or simulator questions, give detailed helpful answers referencing the equations above. Always relate answers back to what the user sees in the simulator.`;
+RESPONSE STYLE RULES:
+- Never use markdown tables, never use | characters
+- Never use bold (**text**) or headers (###)
+- Write in plain conversational sentences
+- For greetings: 1-2 sentences only
+- For simple questions: 3-5 sentences max
+- For complex physics: use short numbered points, plain text only
+- Always end with one practical tip related to the simulator
+- Keep total response under 120 words`;
 
     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
