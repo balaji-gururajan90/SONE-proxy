@@ -70,7 +70,7 @@ RESPONSE STYLE RULES:
 - Keep total response under 120 words
 - Before suggesting any parameter change, state its current value from the simulator state above
 - Never suggest setting a parameter to a value it is already at
-- If all parameters look correctly set for the user's goal, say so directly instead of inventing suggestions
+- If all parameters look correctly set for the user's goal, say so directly instead of inventing suggestions`;
 
     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
