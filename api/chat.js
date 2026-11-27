@@ -60,7 +60,9 @@ RESPONSE STYLE RULES:
 - Write in plain conversational sentences
 - For greetings: 1-2 sentences only
 - For simple questions: 3-5 sentences max
-- For complex physics: use short numbered points, plain text only
+- For complex physics: use short numbered points with a blank line between each point
+- After every sentence that ends a thought, add a line break
+- Never run sentences together into one paragraph
 - Always end with one practical tip related to the simulator
 - Keep total response under 120 words`;
 
@@ -76,7 +78,7 @@ RESPONSE STYLE RULES:
           { role: 'system', content: systemPrompt },
           { role: 'user', content: message || 'hello' }
         ],
-        max_tokens: 800,
+        max_tokens: 600,
         temperature: 0.3
       })
     });
