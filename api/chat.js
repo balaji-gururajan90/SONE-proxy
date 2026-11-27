@@ -21,7 +21,46 @@ Current simulator state:
 - Film composition: ${s.filmComposition ? JSON.stringify(s.filmComposition) : 'none'}
 - Simulation running: ${s.isRunning ? 'yes' : 'no'}
 
-You can explain what is happening in the simulation right now, predict outcomes, suggest parameter changes, and answer questions about sputtering physics. Reference the Berg (1987) reactive sputtering model, Yamamura–Bohdansky sputter yield formula, Hertz–Knudsen impingement flux, and mean free path physics when relevant. Be concise, accurate, and educational. For greetings or casual messages, respond briefly in 1-2 sentences. For physics or simulator questions, give detailed helpful answers.`;
+PHYSICS KNOWLEDGE:
+
+1. YAMAMURA–BOHDANSKY SPUTTER YIELD (1996):
+Y(E) = 0.042 × Q × α*(M2/M1) × Sn(E) / Us × [1 − √(Eth/E)]^s × [1 − Eth/E]^W
+- Q: material factor, α*: mass ratio function, Sn: nuclear stopping, Us: surface binding energy
+- Eth: threshold energy, s and W: empirical exponents
+- Valid for Ar⁺ bombardment on metals; used for all 15+ materials in SputterOne
+
+2. BERG MODEL — ORIGINAL (Berg 1987):
+Target poisoning balance:
+θt = 2αtF(1−θt) / [2αtF(1−θt) + (J/q)×Yc×θt]
+Steady state: θt_eq = 2αtF / (2αtF + J/q × Yc)
+- F = P/√(2πmkT): Hertz–Knudsen impingement flux (molecules/m²/s)
+- Factor 2: one O₂ molecule forms two metal-oxide species
+- αt: chemisorption probability, Yc: compound sputter yield
+- Effective yield: Yeff = Ym(1−θt) + Yc×θt
+- Predicts hysteresis: sharp metallic→poisoned transition with increasing O₂ flow
+
+3. BERG MODEL — UPGRADED (Berg, Särhammar & Nyberg, Thin Solid Films, 2014):
+Adds three effects missing from the 1987 model:
+a) Ion implantation: reactive gas ions (O⁺) implanted into target bulk with probability αi
+b) Knock-in effect: Ar⁺ knocks compound atoms deeper into target (yield Yk)
+c) Argon pressure dependence: ion current split P/(PA+P) for reactive gas ions
+Full target balance (Eq. 2):
+(J/q)×Yk×θt² + (J/q)×Yc×θt = 2αtF(1−θt) + 2αi×(J/q)×[P/(PA+P)]×(1−θt)
+- Quadratic in θt → sharper hysteresis than 1987 model
+- Needs 4 parameters (αt, αi, Yk, Yc) vs 2 in original
+- SputterOne implements the simpler 1987 model (best for teaching)
+
+4. HERTZ–KNUDSEN IMPINGEMENT FLUX:
+F = P / √(2πmkT)
+- P: partial pressure (Pa), m: molecular mass (kg), k: Boltzmann constant, T: temperature (K)
+- Gives molecules hitting surface per m² per second
+
+5. MEAN FREE PATH:
+λ = kT / (√2 × π × d² × P)
+- d: collision diameter, P: pressure
+- Transport factor: exp(−d/λ) where d is target-substrate distance
+
+Be concise and accurate. For greetings or casual messages, respond in 1-2 sentences. For physics or simulator questions, give detailed helpful answers referencing the equations above. Always relate answers back to what the user sees in the simulator.`;
 
     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
